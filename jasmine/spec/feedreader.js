@@ -76,9 +76,7 @@ $(function() {
     describe('Initial Entries', function() {
 
         beforeEach(function(done){
-            loadFeed(0, function(){
-                done();
-            });
+            loadFeed(0, done);
         });
 
         /* Test that ensures when the loadFeed
@@ -93,26 +91,28 @@ $(function() {
 
 
 
-    describe('New Feed Selection', function() {
-        var feed_1,
-            feed_2;
+   describe('New Feed Selection', function() {
+        var feedOne,
+            feedTwo;
 
         beforeEach(function(done){
+            $('.feed').empty();
             loadFeed(0, function(){
-               feed_1 = $('.feed').html();
-            });
-            loadFeed(1, function(){
-                feed_2 = $('.feed').html();
-                done();
+               feedOne = $('.feed').find('h2').text();
+                loadFeed(1, function(){
+                    feedTwo = $('.feed').find('h2').text();
+                    done();
+                });
             });
         });
+
+
 
         /* Test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
         */
-        it('content changes', function(done){
-            expect(feed_1).not.toEqual(feed_2);
-            done();
+        it('content changes', function(){
+            expect(feedOne).not.toEqual(feedTwo);
         });
     });
 
